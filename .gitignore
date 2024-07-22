@@ -1,0 +1,29 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore .env file
+.env
+
+# Optional: Ignore build directories (for example, if you use create-react-app)
+build/
+dist/
+
+# Optional: Ignore logs
+logs
+*.log
+
+# Optional: Ignore other environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Optional: Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Optional: Ignore editor-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
