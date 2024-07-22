@@ -1,26 +1,28 @@
-const API_URL = "http://localhost:5000/api";
+const API_URL = "http://localhost:5000";
 
-export const createUser = async (userData: {
+export const sendRegisterDetailstoServer = async (userData: {
   email: string;
   password: string;
 }) => {
   try {
     const response = await fetch(`${API_URL}/register`, {
       method: "POST",
-      mode:"no-cors",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userData),
     });
 
+    const result = await response.json();
+
     if (!response.ok) {
-      throw new Error("Failed to create user");
+      throw new Error("Response.ok :" + response.ok);
     }
 
-    const result = await response.json();
+    console.log(result);
     return result;
-  } catch (error) {
-    throw new Error("Error creating user: " + Error);
+  } catch (error: any) {
+    console.error("Error sending registration details:", error.message);
+    throw new Error(`Registration failed: ${error.message}`);
   }
 };

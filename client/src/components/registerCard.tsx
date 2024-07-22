@@ -1,15 +1,20 @@
 import { useState } from "react";
-import { createUser } from "../api";
-
-
+import { sendRegisterDetailstoServer } from "../api";
 
 function Register() {
   const [userEmail, SetUserEmail] = useState("");
   const [userPassword, SetUserPassword] = useState("");
 
   const handleRegistration = async () => {
-    await createUser({ email: userEmail, password: userPassword });
-  }
+    try {
+      await sendRegisterDetailstoServer({
+        email: userEmail,
+        password: userPassword,
+      });
+    } catch (err: any) {
+      console.error("Error sending registration data", err);
+    }
+  };
   return (
     <div className="border border-gray-300 p-4 rounded-lg">
       <div className="text-3xl font-bold">Register</div>
@@ -32,7 +37,7 @@ function Register() {
         <div>
           <input
             className="border border-black rounded-lg p-1"
-            type="text"
+            type="password"
             value={userPassword}
             onChange={(e) => SetUserPassword(e.target.value)}
             placeholder="Enter Password"
@@ -40,9 +45,10 @@ function Register() {
         </div>
       </div>
       <div className="py-2 ">
-        <button 
+        <button
           onClick={handleRegistration}
-          className="bg-black text-gray-300 border border-transparent rounded-lg p-2 hover:bg-white hover:text-black hover:border-gray-700 hover:border w-full">
+          className="bg-black text-gray-300 border border-transparent rounded-lg p-2 hover:bg-white hover:text-black hover:border-gray-700 hover:border w-full"
+        >
           Register
         </button>
       </div>
