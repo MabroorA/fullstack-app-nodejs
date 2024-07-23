@@ -1,16 +1,18 @@
 import { Router, Request, Response } from "express";
-import { getAllUsers, getUser, loginNewUser, registerNewUser  } from "../controllers/userController";
+import { getAllUsers, getCurrentUser, loginNewUser, registerNewUser  } from "../controllers/userController";
+import { verifyToken } from "./authMiddleware";
 
 const router = Router();
 
 router.get("/", (req: Request, res: Response) => {
-  console.log("Server Working");
   res.send("Express + TypeScript Server");
 });
 
 router.post("/user/register", registerNewUser );
 router.post("/user/login", loginNewUser );
-router.get("/user/:email", getUser);
 router.get("/users", getAllUsers);
+
+// Protected
+router.get("/user", verifyToken, getCurrentUser);
 
 export default router;

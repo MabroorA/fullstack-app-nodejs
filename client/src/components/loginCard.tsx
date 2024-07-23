@@ -6,7 +6,7 @@ function LoginCard() {
   const [userPassword, setUserPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const handleUserLogin = async () => {
     try {
       const result = await loginUser({
@@ -72,7 +72,7 @@ function LoginCard() {
               type="submit"
               className="w-full p-2 text-gray-300 bg-black border border-transparent rounded-lg hover:bg-white hover:text-black hover:border-gray-700 hover:border"
             >
-              Register
+              Login
             </button>
           </div>
         </form>

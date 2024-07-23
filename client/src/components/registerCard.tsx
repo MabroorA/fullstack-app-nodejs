@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { registerNewUser } from "../api";
+import { useNavigate } from "react-router-dom";
 
 function RegisterCard() {
   const [userName, setUserName] = useState("");
@@ -7,8 +8,9 @@ function RegisterCard() {
   const [userPassword, setUserPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
   
+
+  const navigate = useNavigate();
   const handleUserRegistration = async () => {
     if (userPassword !== confirmPassword) {
       setErrorMessage("Passwords do not match");
@@ -23,15 +25,14 @@ function RegisterCard() {
       });
 
       if (result.success) {
-        setSuccessMessage(result.message);
         setErrorMessage("");
+        localStorage.setItem("token", result.token);
+        navigate("/");
       } else {
         setErrorMessage(result.message || "An unknown error occurred");
-        setSuccessMessage("");
       }
     } catch (err: any) {
       setErrorMessage(`Registration failed: ${err.message}`);
-      setSuccessMessage("");
     }
   };
   return (
@@ -101,7 +102,6 @@ function RegisterCard() {
             />
           </div>
           {errorMessage && <div className="text-red-500">{errorMessage}</div>}
-          {successMessage && <div className="text-green-500">{successMessage}</div>}
           <div className="py-2">
             <button
               type="submit"

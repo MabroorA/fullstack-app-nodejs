@@ -23,11 +23,11 @@ function HomePage() {
 
   return (
     <div>
-        <NavBar/>
+      <NavBar />
       <div className="py-5 text-3xl font-semibold text-center md:text-5xl">
         Home Page
       </div>
-      {isLoggedIn ? (
+      {isLoggedIn && (
         <div className="p-4 text-center">
           <div className="py-4">You are logged in!</div>
           <button
@@ -37,7 +37,8 @@ function HomePage() {
             Logout
           </button>
         </div>
-      ) : (
+      )}
+      {!isLoggedIn && (
         <div className="p-4 space-y-4 text-center">
           <div className="py-4">Please log in to access this page.</div>
           <button
