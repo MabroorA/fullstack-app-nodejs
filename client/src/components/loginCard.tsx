@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { registerNewUser } from "../api";
 
-function RegisterCard() {
+function LoginCard() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
@@ -69,4 +69,4 @@ function RegisterCard() {
   );
 }
 
-export default RegisterCard;
+export default LoginCard;

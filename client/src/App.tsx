@@ -4,8 +4,10 @@ import Register from './components/registerCard';
 
 function App() {
   return (
-    <div className=" max-w-md mx-auto p-5">
-      <Register/>
+    <div>
+      <div className=" mx-auto max-w-7xl max-h-lvh p-3">
+        <Register/>
+      </div>
     </div>
   )
 }
