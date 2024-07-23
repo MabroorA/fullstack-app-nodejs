@@ -2,36 +2,68 @@ import { useState } from "react";
 import { registerNewUser } from "../api";
 
 function RegisterCard() {
+  const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  
   const handleUserRegistration = async () => {
+    if (userPassword !== confirmPassword) {
+      setErrorMessage("Passwords do not match");
+      return;
+    }
+
     try {
-      await registerNewUser({
+      const result = await registerNewUser({
+        name: userName,
         email: userEmail,
         password: userPassword,
       });
+
+      if (result.success) {
+        setSuccessMessage(result.message);
+        setErrorMessage("");
+      } else {
+        setErrorMessage(result.message || "An unknown error occurred");
+        setSuccessMessage("");
+      }
     } catch (err: any) {
-      throw new Error(`Handling Registration failed: ${err.message}`);
+      setErrorMessage(`Registration failed: ${err.message}`);
+      setSuccessMessage("");
     }
   };
   return (
-    <div className=" flex  justify-center  p-16 mx-auto">
-      <div className="flex flex-col border border-gray-300 p-16 w-fit  rounded-lg ">
-        <div className="text-3xl font-bold">Register</div>
+    <div className="flex justify-center p-16 mx-auto ">
+      <div className="flex flex-col p-16 border border-gray-300 rounded-lg w-fit ">
+        <div className="text-3xl font-semibold">Register</div>
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleUserRegistration();
           }}
         >
-          {/* Email Section */}
+          <div className="flex flex-col py-4">
+            <label className="py-2" htmlFor="name">
+              Name
+            </label>
+            <input
+              className="py-1 border-b-2 border-gray "
+              type="text"
+              id="name"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              placeholder="Enter Name"
+              required
+            />
+          </div>
           <div className="flex flex-col py-4">
             <label className="py-2" htmlFor="email">
               Email
             </label>
             <input
-              className="border-b-2 border-gray py-1 "
+              className="py-1 border-b-2 border-gray "
               type="email"
               id="email"
               value={userEmail}
@@ -40,13 +72,12 @@ function RegisterCard() {
               required
             />
           </div>
-          {/* Password Section */}
           <div className="flex flex-col py-4">
             <label className="py-2" htmlFor="password">
               Password
             </label>
             <input
-              className="border-b-2 border-gray py-1 "
+              className="py-1 border-b-2 border-gray "
               type="password"
               id="password"
               value={userPassword}
@@ -55,10 +86,26 @@ function RegisterCard() {
               required
             />
           </div>
+          <div className="flex flex-col py-4">
+            <label className="py-2" htmlFor="confirmPassword">
+              Confirm Password
+            </label>
+            <input
+              className="py-1 border-b-2 border-gray "
+              type="password"
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm Password"
+              required
+            />
+          </div>
+          {errorMessage && <div className="text-red-500">{errorMessage}</div>}
+          {successMessage && <div className="text-green-500">{successMessage}</div>}
           <div className="py-2">
             <button
               type="submit"
-              className="bg-black text-gray-300 border border-transparent rounded-lg p-2 hover:bg-white hover:text-black hover:border-gray-700 hover:border w-full"
+              className="w-full p-2 text-gray-300 bg-black border border-transparent rounded-lg hover:bg-white hover:text-black hover:border-gray-700 hover:border"
             >
               Register
             </button>

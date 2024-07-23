@@ -1,16 +1,17 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, response, Response } from "express";
+import jwt,{ Jwt } from "jsonwebtoken";
 const prisma = new PrismaClient();
 
-export const registerNewUserController  = async (req: Request, res: Response) => {
+export const registerNewUser = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { name , email, password } = req.body;
 
-    if (!email || !password) {
+    if (!name || !email || !password) {
       return res.status(400).json({
         status: 400,
         success: false,
-        message: "Email and password are required",
+        message: "Name ,Email and password are required",
       });
     }
 
@@ -27,7 +28,7 @@ export const registerNewUserController  = async (req: Request, res: Response) =>
     }
 
     const newUser = await prisma.user.create({
-      data: { email, password },
+      data: { name, email, password },
     });
 
     return res.status(201).json({
@@ -42,6 +43,55 @@ export const registerNewUserController  = async (req: Request, res: Response) =>
       status: 500,
       success: false,
       message: "Error creating user",
+    });
+  }
+};
+
+export const loginNewUser = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+    // const JWT_SECRET = process.env.JWT_SECRET
+
+    if (!email || !password) {
+      return res.status(400).json({
+        status: 400,
+        success: false,
+        message: "Email and Password are required",
+      });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user || user.password !== password) {
+      return res.status(401).json({
+        status: 401,
+        success: false,
+        message: "Invalid Email or Password",
+      });
+    }
+    
+    const token = jwt.sign({ userId: user.id }, "your_jwt_secret");
+
+    if (user) {
+      return res.status(200).json({
+        status: 200,
+        success: true,
+        message: "Login Successful",
+        user,
+        token,
+      });
+    }
+
+
+    
+  } catch (error: any) {
+    console.error("Error logging user in:", error.message);
+    return res.status(500).json({
+      status: 500,
+      success: false,
+      message: "Error logging user in:",
     });
   }
 };

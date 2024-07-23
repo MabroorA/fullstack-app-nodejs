@@ -5,7 +5,7 @@ function LoginPage() {
   return (
     <div>
       <div className="text-3xl font-semibold text-center md:text-5xl">
-        LoginPage
+        Login Page
       </div>
       <div>
         <LoginCard />

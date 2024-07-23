@@ -1,28 +1,38 @@
 import { useState } from "react";
-import { registerNewUser } from "../api";
-
+import { loginUser } from "../api";
+import { useNavigate } from "react-router-dom";
 function LoginCard() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleUserRegistration = async () => {
+  let navigate = useNavigate();
+  const handleUserLogin = async () => {
     try {
-      await registerNewUser({
+      const result = await loginUser({
         email: userEmail,
         password: userPassword,
       });
+      if (result.success) {
+        setErrorMessage("");
+        localStorage.setItem("token", result.token);
+        navigate("/");
+
+      } else {
+        setErrorMessage(result.message || "An unknown error occurred");
+      }
     } catch (err: any) {
-      throw new Error(`Handling Registration failed: ${err.message}`);
+      setErrorMessage(`${err.message}`);
     }
   };
   return (
-    <div className=" flex  justify-center  p-16 mx-auto">
-      <div className="flex flex-col border border-gray-300 p-16 w-fit  rounded-lg ">
-        <div className="text-3xl font-bold">Register</div>
+    <div className="flex justify-center p-16 mx-auto ">
+      <div className="flex flex-col p-16 border border-gray-300 rounded-lg w-fit ">
+        <div className="text-3xl font-semibold">Login</div>
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleUserRegistration();
+            handleUserLogin();
           }}
         >
           {/* Email Section */}
@@ -31,7 +41,7 @@ function LoginCard() {
               Email
             </label>
             <input
-              className="border-b-2 border-gray py-1 "
+              className="py-1 border-b-2 border-gray "
               type="email"
               id="email"
               value={userEmail}
@@ -46,7 +56,7 @@ function LoginCard() {
               Password
             </label>
             <input
-              className="border-b-2 border-gray py-1 "
+              className="py-1 border-b-2 border-gray "
               type="password"
               id="password"
               value={userPassword}
@@ -55,10 +65,12 @@ function LoginCard() {
               required
             />
           </div>
+
+          {errorMessage && <div className="text-red-500">{errorMessage}</div>}
           <div className="py-2">
             <button
               type="submit"
-              className="bg-black text-gray-300 border border-transparent rounded-lg p-2 hover:bg-white hover:text-black hover:border-gray-700 hover:border w-full"
+              className="w-full p-2 text-gray-300 bg-black border border-transparent rounded-lg hover:bg-white hover:text-black hover:border-gray-700 hover:border"
             >
               Register
             </button>
