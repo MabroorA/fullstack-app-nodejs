@@ -1,56 +1,69 @@
 import { useState } from "react";
-import { sendRegisterDetailstoServer } from "../api";
+import { registerNewUser  } from "../api";
 
 function Register() {
-  const [userEmail, SetUserEmail] = useState("");
-  const [userPassword, SetUserPassword] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
 
-  const handleRegistration = async () => {
+  const handleUserRegistration  = async () => {
     try {
-      await sendRegisterDetailstoServer({
+      await registerNewUser({
         email: userEmail,
         password: userPassword,
       });
     } catch (err: any) {
-      console.error("Error sending registration data", err);
+      throw new Error(`Handling Registration failed: ${err.message}`);
     }
   };
   return (
-    <div className="border border-gray-300 p-4 rounded-lg">
-      <div className="text-3xl font-bold">Register</div>
-      {/* Email Section */}
-      <div className=" flex flex-col py-2">
-        <div className="py-2">Email</div>
-        <div>
-          <input
-            className="border border-black rounded-lg p-1"
-            type="text"
-            value={userEmail}
-            onChange={(e) => SetUserEmail(e.target.value)}
-            placeholder="Enter Email"
-          />
-        </div>
-      </div>
-      {/* Password Section */}
-      <div className=" flex flex-col py-2">
-        <div className="py-2">Password</div>
-        <div>
-          <input
-            className="border border-black rounded-lg p-1"
-            type="password"
-            value={userPassword}
-            onChange={(e) => SetUserPassword(e.target.value)}
-            placeholder="Enter Password"
-          />
-        </div>
-      </div>
-      <div className="py-2 ">
-        <button
-          onClick={handleRegistration}
-          className="bg-black text-gray-300 border border-transparent rounded-lg p-2 hover:bg-white hover:text-black hover:border-gray-700 hover:border w-full"
+    <div className=" flex  justify-center  border border-gray-300 py-8 rounded-lg">
+      <div className="flex flex-col">
+        <div className="text-3xl font-bold">Register</div>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleUserRegistration ();
+          }}
         >
-          Register
-        </button>
+          {/* Email Section */}
+          <div className="flex flex-col py-2">
+            <label className="py-2" htmlFor="email">
+              Email
+            </label>
+            <input
+              className="border-b-2 border-gray py-1 "
+              type="email"
+              id="email"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+              placeholder="Enter Email"
+              required
+            />
+          </div>
+          {/* Password Section */}
+          <div className="flex flex-col py-2">
+            <label className="py-2" htmlFor="password">
+              Password
+            </label>
+            <input
+              className="border-b-2 border-gray py-1 "
+              type="password"
+              id="password"
+              value={userPassword}
+              onChange={(e) => setUserPassword(e.target.value)}
+              placeholder="Enter Password"
+              required
+            />
+          </div>
+          <div className="py-2">
+            <button
+              type="submit"
+              className="bg-black text-gray-300 border border-transparent rounded-lg p-2 hover:bg-white hover:text-black hover:border-gray-700 hover:border w-full"
+            >
+              Register
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

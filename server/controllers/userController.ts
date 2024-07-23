@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { Request, response, Response } from "express";
 const prisma = new PrismaClient();
 
-export const registerUser = async (req: Request, res: Response) => {
+export const registerNewUserController  = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
 

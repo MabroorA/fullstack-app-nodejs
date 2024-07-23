@@ -1,6 +1,6 @@
 const API_URL = "http://localhost:5000";
 
-export const sendRegisterDetailstoServer = async (userData: {
+export const registerNewUser  = async (userData: {
   email: string;
   password: string;
 }) => {
@@ -22,7 +22,6 @@ export const sendRegisterDetailstoServer = async (userData: {
     console.log(result);
     return result;
   } catch (error: any) {
-    console.error("Error sending registration details:", error.message);
     throw new Error(`Registration failed: ${error.message}`);
   }
 };
