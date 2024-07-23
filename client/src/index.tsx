@@ -9,9 +9,8 @@ import {
   // Link,
 } from "react-router-dom";
 import HomePage from "./pages/homePage";
-import UserPage from "./pages/userPage";
+import ProfilePage from "./pages/profilePage";
 import RegisterPage from "./pages/registerPage";
-import NavBar from "./components/navBar";
 import LoginPage from "./pages/loginPage";
 
 const root = ReactDOM.createRoot(
@@ -26,8 +25,8 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/user",
-    element:<UserPage/> ,
+    path: "/profile",
+    element:<ProfilePage/> ,
   },
   {
     path: "/register",
@@ -40,8 +39,8 @@ const router = createBrowserRouter([
 ]);
 root.render(
   <React.StrictMode>
-    <NavBar/>
-    <RouterProvider router={router} />
+
+    <RouterProvider router={router}/>
   </React.StrictMode>
 );
 
