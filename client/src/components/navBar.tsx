@@ -54,7 +54,7 @@ function NavBar() {
               </button>
               <button
                 onClick={() => navigate("/register")}
-                className="px-1.5 py-1.5 text-lg font-medium text-black transition duration-200 bg-white border border rounded-lg shadow-md md:px-3 md:py-2 hover:bg-gray-300 hover:border-gray-400 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
+                className="px-1.5 py-1.5 text-lg font-medium text-black transition duration-200 bg-white border rounded-lg shadow-md md:px-3 md:py-2 hover:bg-gray-300 hover:border-gray-400 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
               >
                 Register
               </button>
