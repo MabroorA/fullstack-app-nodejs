@@ -8,12 +8,26 @@ function RegisterCard() {
   const [userPassword, setUserPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  
 
   const navigate = useNavigate();
+
   const handleUserRegistration = async () => {
     if (userPassword !== confirmPassword) {
       setErrorMessage("Passwords do not match");
+      return;
+    }
+
+    const validatePassword = (password: string) => {
+
+      const minLength = 6;
+      const specialCharacterPattern = /[!@#$%^&*(),.?":{}|<>_\-~]/;
+
+  
+      return password.length >= minLength && specialCharacterPattern.test(password);
+    };
+    
+    if (!validatePassword(userPassword)) {
+      setErrorMessage("Password must be at least 6 characters long and contain at least one special character");
       return;
     }
 
@@ -105,7 +119,7 @@ function RegisterCard() {
           <div className="py-2">
             <button
               type="submit"
-              className="w-full p-2 text-gray-300 bg-black border border-transparent rounded-lg hover:bg-white hover:text-black hover:border-gray-700 hover:border"
+              className="w-full p-2 text-white bg-black border border-transparent rounded-lg hover:bg-white hover:text-black hover:border-gray-700 hover:border"
             >
               Register
             </button>
