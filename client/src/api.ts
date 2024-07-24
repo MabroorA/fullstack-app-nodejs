@@ -17,13 +17,10 @@ export const registerNewUser = async (userData: {
     const result = await response.json();
     localStorage.setItem("token", result.token);
 
-    if (!response.ok) {
-      throw new Error("Response.ok :" + response.ok);
-    }
 
     return result;
   } catch (error: any) {
-    throw new Error(`Registration failed: ${error.message}`);
+    throw new Error(`${error.message}`);
   }
 };
 
@@ -50,7 +47,7 @@ export const loginUser = async (userData: {
 
     return result;
   } catch (error: any) {
-    throw new Error(`Login Failed: ${error.message}`);
+    throw new Error(`${error.message}`);
   }
 };
 export const getCurrentUser = async () => {

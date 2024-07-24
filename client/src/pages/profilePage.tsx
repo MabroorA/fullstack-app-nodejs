@@ -25,36 +25,42 @@ function ProfilePage() {
 
     fetchUser();
   }, []);
-  if (loading) {
-    return (
-      <div>
-        <NavBar />
-        <div className="text-3xl font-semibold text-center md:text-5xl">
-          Loading...
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div>
+    <div className="flex flex-col justify-center ">
       <NavBar />
-
-      <div className="flex flex-col mx-auto text-center ">
-        <div className="text-3xl font-semibold text-center md:text-5xl">
-          User Page
-        </div>
-        <div className="flex flex-col py-10 mx-auto text-center">
-          <div className="flex flex-row">
-            <div className="p-2 font-bold "> Name:</div>
-            <div className="p-2 text-black">{user?.name || "No user name"}</div>
+      <main className="flex flex-col items-center justify-center flex-grow p-5 md:p-12">
+        {loading && (
+          <div className="text-2xl font-semibold text-gray-700 md:text-4xl">
+            Loading...
           </div>
-          <div className="flex flex-row">
-            <div className="p-2 font-bold "> Email:</div>
-            <div className="p-2 text-black">{user?.email}</div>
+        )}
+        {!loading && !user && (
+          <div className="text-xl text-center text-gray-600 md:text-2xl">
+            User data could not be loaded.
           </div>
-        </div>
-      </div>
+        )}
+        {!loading && user && (
+          <div className="w-full max-w-md p-6 bg-white border rounded-lg shadow-md md:p-8">
+            <h1 className="mb-6 text-3xl font-semibold text-center">
+              User Profile
+            </h1>
+            <div className="space-y-4">
+              <div className="flex justify-between">
+                <span className="font-semibold text-gray-800">Name:</span>
+                <span className="text-gray-600">
+                  {user.name || "No user name"}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-semibold text-gray-800">Email:</span>
+                <span className="text-gray-600">
+                  {user.email || "No email provided"}
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 }

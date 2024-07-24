@@ -1,15 +1,12 @@
 import NavBar from "../components/navBar";
-import Register from "../components/registerCard";
+import RegisterCard from "../components/registerCard";
 
 function RegisterPage() {
   return (
     <div>
       <NavBar />
-      <div className="text-3xl font-semibold text-center md:text-5xl">
-        Register Page
-      </div>
       <div>
-        <Register />
+        <RegisterCard />
       </div>
     </div>
   );

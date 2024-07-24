@@ -18,16 +18,18 @@ function RegisterCard() {
     }
 
     const validatePassword = (password: string) => {
-
       const minLength = 6;
       const specialCharacterPattern = /[!@#$%^&*(),.?":{}|<>_\-~]/;
 
-  
-      return password.length >= minLength && specialCharacterPattern.test(password);
+      return (
+        password.length >= minLength && specialCharacterPattern.test(password)
+      );
     };
-    
+
     if (!validatePassword(userPassword)) {
-      setErrorMessage("Password must be at least 6 characters long and contain at least one special character");
+      setErrorMessage(
+        "Password must be at least 6 characters long and contain at least one special character"
+      );
       return;
     }
 
@@ -50,21 +52,21 @@ function RegisterCard() {
     }
   };
   return (
-    <div className="flex justify-center p-16 mx-auto ">
-      <div className="flex flex-col p-16 border border-gray-300 rounded-lg w-fit ">
-        <div className="text-3xl font-semibold">Register</div>
+    <div className="flex justify-center p-8 mx-auto ">
+      <div className="flex flex-col w-full max-w-md p-8 bg-white border border-gray-300 rounded-lg shadow-lg">
+        <h1 className="mb-6 text-4xl font-bold text-center">Register</h1>
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleUserRegistration();
           }}
         >
-          <div className="flex flex-col py-4">
-            <label className="py-2" htmlFor="name">
+          <div className="flex flex-col mb-4">
+            <label className="mb-2 text-sm font-medium" htmlFor="name">
               Name
             </label>
             <input
-              className="py-1 border-b-2 border-gray "
+              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="text"
               id="name"
               value={userName}
@@ -73,12 +75,12 @@ function RegisterCard() {
               required
             />
           </div>
-          <div className="flex flex-col py-4">
-            <label className="py-2" htmlFor="email">
+          <div className="flex flex-col mb-4">
+            <label className="mb-2 text-sm font-medium" htmlFor="email">
               Email
             </label>
             <input
-              className="py-1 border-b-2 border-gray "
+              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="email"
               id="email"
               value={userEmail}
@@ -87,12 +89,12 @@ function RegisterCard() {
               required
             />
           </div>
-          <div className="flex flex-col py-4">
-            <label className="py-2" htmlFor="password">
+          <div className="flex flex-col mb-4">
+            <label className="mb-2 text-sm font-medium" htmlFor="password">
               Password
             </label>
             <input
-              className="py-1 border-b-2 border-gray "
+              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="password"
               id="password"
               value={userPassword}
@@ -101,12 +103,15 @@ function RegisterCard() {
               required
             />
           </div>
-          <div className="flex flex-col py-4">
-            <label className="py-2" htmlFor="confirmPassword">
+          <div className="flex flex-col mb-6">
+            <label
+              className="mb-2 text-sm font-medium"
+              htmlFor="confirmPassword"
+            >
               Confirm Password
             </label>
             <input
-              className="py-1 border-b-2 border-gray "
+              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="password"
               id="confirmPassword"
               value={confirmPassword}
@@ -115,15 +120,15 @@ function RegisterCard() {
               required
             />
           </div>
-          {errorMessage && <div className="text-red-500">{errorMessage}</div>}
-          <div className="py-2">
-            <button
-              type="submit"
-              className="w-full p-2 text-white bg-black border border-transparent rounded-lg hover:bg-white hover:text-black hover:border-gray-700 hover:border"
-            >
-              Register
-            </button>
-          </div>
+          {errorMessage && (
+            <div className="mb-4 text-sm text-red-500">{errorMessage}</div>
+          )}
+          <button
+            type="submit"
+            className="w-full py-3 text-lg text-white bg-black rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Register
+          </button>
         </form>
       </div>
     </div>

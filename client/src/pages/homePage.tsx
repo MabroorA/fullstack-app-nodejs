@@ -21,34 +21,51 @@ function HomePage() {
     navigate("/login");
   };
 
-  return (
-    <div>
-      <NavBar />
-      <div className="py-5 text-3xl font-semibold text-center md:text-5xl">
-        Home Page
+  const loggedInContent = (
+    <div className="flex flex-col items-center space-y-4">
+      <div className="text-lg font-medium text-gray-700 md:text-xl">
+        You are logged in!
       </div>
-      {isLoggedIn && (
-        <div className="p-4 text-center">
-          <div className="py-4">You are logged in!</div>
-          <button
-            onClick={handleLogout}
-            className="p-2 text-white bg-red-500 border border-transparent rounded-lg hover:bg-red-700"
-          >
-            Logout
-          </button>
+      <div className="text-sm ">
+        Only logged users can see this secret database file{" "}
+      </div>
+      <img className="rounded-lg " src="/databasefile.png" />
+
+      <div className="text-xs ">
+        The shown database users will have been deleted when you see this
+      </div>
+      <button
+        onClick={handleLogout}
+        className="px-6 py-3 text-lg text-white transition-colors bg-red-500 rounded-lg shadow-md hover:bg-red-600"
+      >
+        Logout
+      </button>
+    </div>
+  );
+
+  const notLoggedInContent = (
+    <div className="flex flex-col items-center space-y-4">
+      <div className="text-lg font-medium text-gray-700 md:text-xl">
+        Please log in to access this page.
+      </div>
+      <button
+        onClick={() => navigate("/login")}
+        className="px-6 py-3 text-lg text-white transition-colors bg-teal-500 rounded-lg shadow-md hover:bg-teal-600"
+      >
+        Login
+      </button>
+    </div>
+  );
+
+  return (
+    <div className="flex flex-col ">
+      <NavBar />
+      <main className="flex flex-col items-center justify-center flex-grow p-6 text-center md:p-12">
+        <div className="mb-6 text-3xl font-extrabold text-gray-800 md:text-5xl">
+          Welcome to the Home Page
         </div>
-      )}
-      {!isLoggedIn && (
-        <div className="p-4 space-y-4 text-center">
-          <div className="py-4">Please log in to access this page.</div>
-          <button
-            onClick={() => navigate("/login")}
-            className="p-2 text-white bg-teal-400 border border-transparent rounded-lg hover:bg-teal-700"
-          >
-            Login
-          </button>
-        </div>
-      )}
+        {isLoggedIn ? loggedInContent : notLoggedInContent}
+      </main>
     </div>
   );
 }

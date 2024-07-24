@@ -6,9 +6,6 @@ function LoginPage() {
   return (
     <div>
       <NavBar/>
-      <div className="text-3xl font-semibold text-center md:text-5xl">
-        Login Page
-      </div>
       <div>
         <LoginCard />
       </div>
