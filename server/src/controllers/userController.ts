@@ -103,6 +103,7 @@ export const loginNewUser = async (req: Request, res: Response) => {
 
 export const getCurrentUser = async (req: Request, res: Response) => {
   try {
+
     const userId = (req as any).userId;
 
     if (!userId) {

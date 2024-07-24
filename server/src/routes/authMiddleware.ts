@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 
+
+
 const jwtSecret = process.env.JWT_SECRET as string
 
 export const verifyToken = async (
@@ -29,7 +31,6 @@ export const verifyToken = async (
     next();
     
   } catch (error) {
-    console.error("Token verification error:", error);
     return res.status(401).json({
       status: 401,
       success: false,

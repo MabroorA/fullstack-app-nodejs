@@ -17,7 +17,15 @@ function NavBar() {
   };
   return (
     <nav className="flex flex-row justify-between w-full p-5 mx-auto text-lg text-black md:flex-row max-w-7xl">
-      <div className="flex items-center justify-center w-full md:mb-0">
+      <div className="flex items-center justify-center w-full space-x-4 md:mb-0">
+        <div className="">
+          <button
+            onClick={() => navigate("/")}
+            className="p-2 text-white bg-gray-800 border rounded-lg hover:bg-white hover:text-black hover:border-gray-300 hover:border hover:cursor-pointer"
+          >
+            Home
+          </button>
+        </div>
         <div>
           {isLoggedIn ? (
             <div className="flex space-x-4">
@@ -36,12 +44,6 @@ function NavBar() {
             </div>
           ) : (
             <div className="flex space-x-4">
-              <button
-                onClick={() => navigate("/")}
-                className="p-2 text-white bg-gray-800 border rounded-lg hover:bg-white hover:text-black hover:border-gray-300 hover:border hover:cursor-pointer"
-              >
-                Home
-              </button>
               <button
                 onClick={() => navigate("/login")}
                 className="p-2 text-white bg-gray-800 border rounded-lg hover:bg-white hover:text-black hover:border-gray-300 hover:border hover:cursor-pointer"
